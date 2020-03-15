@@ -13,7 +13,7 @@
 <table id='headerTable'>
 	<thead>
 		<tr>
-			{% for column_name in atts %}
+			{% for column_name in attrs %}
 			<th>{{ attr_names[column_name] }}</th>
 			{% endfor %}
 		</tr>
@@ -23,7 +23,7 @@
 		{% for person in persons %}
 		<tr>
 
-			{% for key in atts %}
+			{% for key in attrs %}
 
 			<td>{{ person.get(key)  }}</td>
 

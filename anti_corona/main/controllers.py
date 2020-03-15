@@ -2,15 +2,13 @@ from flask import Blueprint, redirect, url_for, render_template, request
 
 from anti_corona.data.models import Person, db
 from anti_corona.utils.csv2dict import convert
+from anti_corona.constants import attributes as attrs
 
 from datetime import datetime
 from os.path import join
 
 
 main = Blueprint('main', __name__)
-attributes = ['entry_date', 'flight', 'fullname', 'id_number', 
-'birth_date', 'passport_number', 'citizenship', 'phone', 'before_arrival',
-'region', 'residence', 'work_place', 'found', 'hospitalized', 'hospital']
 
 
 langs_dict = {}
@@ -68,7 +66,8 @@ def upload():
 @main.route("/show")
 def show():
 	persons = Person.query.all()
-	return render_template('show.html', attr_names=get_lang('ru'), atts=attributes, persons=persons)
+	print(get_lang('ru'))
+	return render_template('show.html', attr_names=get_lang('ru'), attrs=attrs, persons=persons)
 
 
 @main.route("/add", methods=["GET", "POST"])
