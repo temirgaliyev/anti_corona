@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}{{ lang['upload_file'] }}{% endblock %}
+
+{% block content %}
+<form action="/upload" method="POST" enctype="multipart/form-data">
+
+<div class="form-group">
+  <div class="custom-file">
+    <input type="file" class="custom-file-input" name="excel" id="excel">
+    <label class="custom-file-label" for="excel">{{lang['select_file']}}</label>
+  </div>
+</div>
+
+<button type="submit" class="btn btn-primary">{{lang['upload']}}</button>
+
+</form>
+{% endblock %}
+

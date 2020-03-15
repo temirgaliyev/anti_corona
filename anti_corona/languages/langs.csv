@@ -1,0 +1,21 @@
+varname; kz; ru; en
+entry_date; Кіру күні; Дата въезда; Entry date
+flight; Рейс; Рейс; Flight
+fullname; Аты-жөні; ФИО; Fullname
+id_number; ЖСН; ИИН; ID Number
+birth_date; Туған күні; Дата рождения; Date of Birth
+passport_number; Паспорт нөмірі; Номер паспорта; Passport number
+citizenship; Азаматтық; Гражданство; Citizenship
+phone; Ұялы нөмір; Номер мобильного телефона; Phone
+before_arrival; Қазақстанға келгенге дейінгі соңғы 14 күндегі орны мен ұзақтығы (ел, аймақ, мемлекет және т.б. көрсетіңіз); Место и сроки пребывания в последние 14 дней до прибытия в Казахстан (укажите страну, область, штат и т.д.); Place and duration of stay in the last 14 days before arrival in Kazakhstan (indicate country, region, state, etc.)
+region; Аймақ; Регион; Region
+residence; Тұратын жері немесе күтілетін жері; Место жительство, либо предпологаемое место проживания; Place of Residence
+work_place; Жұмыс орны; Место работы; Place of work
+found; Табылды; Найден; Found
+hospitalized; Ауруханаға жатқызылды; Госпитализирован; Hospitalized
+hospital; Жатқызылған аурухана; Место госпитализации; Place of hospitalization
+yes; Иә; Да; Yes
+no; Жоқ; Нет; No
+upload_file; Файлды жүктеу; Загрузить Файл; Upload File
+select_file; Файл таңдаңыз; Выбрать Файл; Select File
+upload; Жүктеу; Загрузить; Upload
