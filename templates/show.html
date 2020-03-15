@@ -1,0 +1,183 @@
+{% extends "base.html" %}
+
+{% block style %}
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.6.1/css/buttons.dataTables.min.css">
+<link href="https://nightly.datatables.net/css/jquery.dataTables.css" rel="stylesheet" type="text/css" />
+<link href="https://nightly.datatables.net/select/css/select.dataTables.css?_=94d76d32d7e7680b5b4d277a8578d7b0.css" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block title %}Показать{% endblock %}
+
+{% block content %}
+
+<table id='headerTable' class="display" width="100%">
+	<thead>
+		<tr>
+			{% for column_name in attrs %}
+			<th>{{ attr_names[column_name] }}</th>
+			{% endfor %}
+		</tr>
+	</thead>
+
+	<tbody>
+		{% for person in persons %}
+		<tr id="{{ person.get('id') }}">
+
+			{% for key in attrs %}
+
+			{% if key=='hospital' and person.get(key)==''%}
+			<td><button onclick="addHospital({{person.get('id')}})" >Добавить</button></td>
+			{% else %}
+			<td>{{ person.get(key)  }}</td>
+			{% endif %}
+
+			{% endfor %}
+		</tr>
+		{% endfor %}
+	</tbody>
+
+</table>
+
+<button id="check_found">Отметить найденным</button>
+<button id="uncheck_found">Отметить ненайденным</button>
+<button id="check_hospitalized">Отметить госпитализированным</button>
+<button id="uncheck_hospitalized">Отметить не госпитализированным</button>
+
+{% endblock %}
+
+
+{% block script %}
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.6.1/js/dataTables.buttons.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.html5.min.js"></script>
+<!-- <script src="https://nightly.datatables.net/js/jquery.dataTables.js"></script> -->
+<script src="https://nightly.datatables.net/select/js/dataTables.select.js"></script>
+
+<script type="text/javascript">
+	function addHospital(id) {
+		var hospital = prompt("Введите место госпитализации", "");
+		
+		$.ajax({
+			url: "/api/add_hospital",
+			type: "POST",
+			data: JSON.stringify([id, hospital]),
+			contentType: "application/json; charset=utf-8",
+			success: function(dat) { 
+				if (dat==='ok'){
+					$('tr[id='+id+']>td:nth-child(15)').html(hospital);
+				}
+			}
+		});
+	}
+
+	$(document).ready(function() {
+
+		var table = $('#headerTable').DataTable( {
+			dom: 'Bfrtip',
+			select: {style: 'multi'},
+			buttons: ['excelHtml5']
+		} );
+
+
+		$("#check_found").click(function(){
+			var elements = document.getElementsByClassName("selected");
+			var idArray = [];
+			for (var i = 0, len = elements.length; i < len; i++) {
+				idArray.push($(elements[i]).attr('id'));
+			}
+
+			$.ajax({
+				url: "/api/check_found",
+				type: "POST",
+				data: JSON.stringify(idArray),
+				contentType: "application/json; charset=utf-8",
+				success: function(dat) { 
+					if (dat==='ok'){
+						for (var i = 0, len = idArray.length; i < len; i++) {
+							$('tr[id='+idArray[i]+']>td:nth-child(13)').html('Да');
+						}
+					}
+				}
+			});
+
+		});
+
+
+		$("#uncheck_found").click(function(){
+			var elements = document.getElementsByClassName("selected");
+			var idArray = [];
+			for (var i = 0, len = elements.length; i < len; i++) {
+				idArray.push($(elements[i]).attr('id'));
+			}
+
+			$.ajax({
+				url: "/api/uncheck_found",
+				type: "POST",
+				data: JSON.stringify(idArray),
+				contentType: "application/json; charset=utf-8",
+				success: function(dat) { 
+					if (dat==='ok'){
+						for (var i = 0, len = idArray.length; i < len; i++) {
+							$('tr[id='+idArray[i]+']>td:nth-child(13)').html('Нет');
+						}
+					}
+				}
+			});
+
+		});
+
+
+		$("#check_hospitalized").click(function(){
+			var elements = document.getElementsByClassName("selected");
+			var idArray = [];
+			for (var i = 0, len = elements.length; i < len; i++) {
+				idArray.push($(elements[i]).attr('id'));
+			}
+
+			$.ajax({
+				url: "/api/check_hospitalized",
+				type: "POST",
+				data: JSON.stringify(idArray),
+				contentType: "application/json; charset=utf-8",
+				success: function(dat) { 
+					if (dat==='ok'){
+						for (var i = 0, len = idArray.length; i < len; i++) {
+							$('tr[id='+idArray[i]+']>td:nth-child(14)').html('Да');
+						}
+					}
+				}
+			});
+
+		});
+
+
+		$("#uncheck_hospitalized").click(function(){
+			var elements = document.getElementsByClassName("selected");
+			var idArray = [];
+			for (var i = 0, len = elements.length; i < len; i++) {
+				idArray.push($(elements[i]).attr('id'));
+			}
+
+			$.ajax({
+				url: "/api/uncheck_hospitalized",
+				type: "POST",
+				data: JSON.stringify(idArray),
+				contentType: "application/json; charset=utf-8",
+				success: function(dat) { 
+					if (dat==='ok'){
+						for (var i = 0, len = idArray.length; i < len; i++) {
+							$('tr[id='+idArray[i]+']>td:nth-child(14)').html('Нет');
+						}
+					}
+				}
+			});
+
+		});
+
+	} );
+</script>
+{% endblock %}

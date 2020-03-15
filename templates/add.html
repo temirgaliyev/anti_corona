@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% block title %}Показать{% endblock %}
+
+{% block content %}
+
+<div class="container">
+<form action="/add" method="POST" enctype="multipart/form-data">
+
+  <div class="form-group">
+    <label for="entry_date">Дата въезда</label>
+    <input type="date" class="form-control" id="entry_date" name="entry_date" format='dd.mm.YYYY' placeholder="DD.MM.YYYY">
+  </div>
+
+  <div class="form-group">
+    <label for="flight">Рейс</label>
+    <input type="text" class="form-control" id="flight" name="flight">
+  </div>
+
+  <div class="form-group">
+    <label for="fullname">ФИО</label>
+    <input type="text" class="form-control" id="fullname" name="fullname">
+  </div>
+
+  <div class="form-group">
+    <label for="iin">ИИН</label>
+    <input type="number" class="form-control" id="id_number" name="id_number">
+  </div>
+
+  <div class="form-group">
+    <label for="birth_date">Дата рождения</label>
+    <input type="date" class="form-control" id="birth_date" name="birth_date" format='dd.mm.YYYY' placeholder="DD.MM.YYYY">
+  </div>
+
+  <div class="form-group">
+    <label for="passport_number">Номер паспорта</label>
+    <input type="number" class="form-control" id="passport_number" name="passport_number">
+  </div>
+
+  <div class="form-group">
+    <label for="citizenship">Гражданство</label>
+    <input type="text" class="form-control" id="citizenship" name="citizenship">
+  </div>
+
+  <div class="form-group">
+    <label for="phone">Номер мобильного телефона</label>
+    <input type="tel" class="form-control" id="phone" name="phone">
+  </div>
+
+  <div class="form-group">
+    <label for="before_arrival">Место и сроки пребывания в последние 14 дней до прибытия в Казахстан (укажите страну, область, штат и т.д.)</label>
+    <input type="text" class="form-control" id="before_arrival" name="before_arrival">
+  </div>
+
+  <div class="form-group">
+    <label for="region">Регион</label>
+    <input type="text" class="form-control" id="region" name="region">
+  </div>
+
+  <div class="form-group">
+    <label for="residence">Место жительство, либо предпологаемое место проживания</label>
+    <input type="text" class="form-control" id="residence" name="residence">
+  </div>
+
+  <div class="form-group">
+    <label for="workplace">Место работы</label>
+    <input type="text" class="form-control" id="work_place" name="work_place">
+  </div>
+
+  <div class="form-group">
+    <label for="found">Найден</label>
+    <input type="radio" name="found_yes">Yes</input>
+	<input type="radio" name="found_no" checked>No</input>
+  </div>
+
+  <div class="form-group">
+    <label for="hospitalized">Госпитализирован</label>
+    <input type="radio" name="hospitalized_yes">Yes</input>
+	<input type="radio" name="hospitalized_no" checked>No</input>
+  </div>
+
+  <div class="form-group">
+    <label for="hospital">Место госпитализации</label>
+    <input type="text" class="form-control" id="hospital" name="hospital">
+  </div>
+
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+</div>
+
+{% endblock %}
+
