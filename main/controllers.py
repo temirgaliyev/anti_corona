@@ -100,8 +100,8 @@ def add():
 		region = str(request.form.get('region'))
 		residence = str(request.form.get('residence'))
 		work_place = str(request.form.get('work_place'))
-		found = request.form.get('found_yes') == 'on'
-		hospitalized = request.form.get('hospitalized_yes') == 'on'
+		found = request.form.get('found') == 'yes'
+		hospitalized = request.form.get('hospitalized') == 'yes'
 		hospital = str(request.form.get('hospital'))
 
 		person = Person(entry_date=entry_date, flight=flight, fullname=fullname, id_number=id_number,
