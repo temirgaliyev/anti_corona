@@ -26,5 +26,5 @@ https://github.com/alem-01/anti-corona/blob/master/cases/4.CRM.MD
 - Добавить место госпитализации, если её нет
 - Добавить дополнительные данные 
 
-http://anti-corona.us-east-1.elasticbeanstalk.com/add
+http://anti-corona.us-east-1.elasticbeanstalk.com/add  
 http://54.86.229.107/
