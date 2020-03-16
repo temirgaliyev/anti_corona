@@ -19,6 +19,19 @@ def get_lang(locale='ru'):
 	return langs_dict[f"LANG_{locale.upper()}"]
 
 
+def format_datetime(dt):
+	date_patterns = ["%d-%m-%Y", '%d.%m.%Y', '%d/%m/%Y']
+
+	for pattern in date_patterns:
+		try:
+			return datetime.strptime(s_date, pattern).date()
+		except:
+			pass
+
+	return datetime.now()
+
+
+
 @main.route("")
 def home():
 	return render_template('index.html', content=['tim', 'joe', 'bill'])
@@ -28,7 +41,12 @@ def home():
 def upload():
 	if request.method == "POST":
 		if request.files:
-			raw_list = request.get_array(field_name='excel')
+			try:
+				raw_list = request.get_array(field_name='excel')
+			except Exception as e:
+				return render_template('error.html', error_msg='Неверный формат файла')
+				return str(e)
+			
 			removed_empty_list = [line for line in raw_list if sum(len(str(elem)) for elem in line)>10]
 
 			column_names = [get_lang('ru')[attr] for attr in attrs]
@@ -36,7 +54,6 @@ def upload():
 			first_column = 0
 			while first_row < len(removed_empty_list):
 				try:
-					# print(removed_empty_list[first_row][first_column])
 					tmp_date = datetime.strptime(str(removed_empty_list[first_row][first_column]), '%d.%m.%Y')
 					break
 				except Exception as e:
@@ -45,15 +62,18 @@ def upload():
 					else:
 						first_row += 1
 						first_column = 0
+			else:
+				return render_template('error.html', error_msg='Неверно заполненная таблица')
+				return 'incorrect_file_format'
 
 			column_values = removed_empty_list[first_row:]
 
 			for line in column_values:
-				entry_date = datetime.strptime(str(line[first_column]), '%d.%m.%Y')
+				entry_date = format_datetime(line[first_column])
 				flight = str(line[first_column+1])
 				fullname = str(line[first_column+2])
 				id_number = str(line[first_column+3])
-				birth_date = datetime.strptime(line[first_column+4], '%d.%m.%Y')				
+				birth_date = format_datetime(line[first_column+4])			
 				passport_number = str(line[first_column+5])
 				citizenship = str(line[first_column+6])
 				phone = str(line[first_column+7])
